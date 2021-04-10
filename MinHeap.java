@@ -22,43 +22,9 @@ public class MinHeap {
     }
 
     /**
-     * Método que acessa e retorna do menor elemento do heap. Caso o heap esteja vazio, um valor null deve ser retornado.
-     * @return o menor valor do heap.
+     * Verifica quantos elementos são balanceados
+     * @return o numero de elementos balanceados
      */
-    Computador min() {
-        if (size == 0) {
-            return null;
-        }
-        return elems.get(0);
-    }
-
-    /**
-     * Retorna o tamanho do heap em número de elementos dentro do heap.
-     * @return number of items
-     */
-    Integer length() {
-        return size - 1;
-    }
-
-    /**
-     * Testa se o heap é vazio.
-     * @return true caso o heap esteja vazio, false caso contrário.
-     */
-    boolean isEmpty() {
-        return size == 0;
-    }
-
-    /**
-     * Troca dois elementos de lugar
-     * @param pos1 posição do primeiro elem
-     * @param pos2 posição do segundo elem
-     */
-    void swap(int pos1, int pos2) {
-        Computador temp = elems.get(pos1);
-        elems.add(pos1, elems.get(pos2));
-        elems.add(pos2, temp);
-    }
-
     int howManyAreBalanced() {
         if (size == 0) {
             return 0;
@@ -112,6 +78,11 @@ public class MinHeap {
         return balanced;
     }
 
+    /**
+     * Pega o ultimo indice do computador ainda com nome
+     * Ex: 'X30', sendo os filhos dele -> 44, 43
+     * @return o indice do ultimo computador com nome
+     */
     int getLastComputerWithName() {
         int indexWithName = -1;
         for (int i = size - 1; i > 0; i--) {
