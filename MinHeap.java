@@ -92,8 +92,6 @@ public class MinHeap {
 
             int isBalanced = leftChild[1] == rightChild[1] ? 1 : -1;
 
-            System.out.println(computer.getNome() + " == " + isBalanced);
-
             int work = leftChild[1] + rightChild[1];
             
             int[] values = new int[2];
