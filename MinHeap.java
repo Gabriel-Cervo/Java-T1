@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -29,7 +28,7 @@ public class MinHeap {
         if (size == 0) {
             return 0;
         }
-        
+
         HashMap<String, int[]> computersWithWorkCalculated = new HashMap<>();
 
         int indexOflastComputerWithName = getLastComputerWithName();
