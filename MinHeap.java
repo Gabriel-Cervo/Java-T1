@@ -104,7 +104,7 @@ public class MinHeap {
         Iterator it = valoresComTrabalho.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            balanced = valoresComTrabalho.get(pair.getKey())[0] == -1 ? balanced + 1 : balanced;
+            balanced = valoresComTrabalho.get(pair.getKey())[0] == -1 ? balanced : balanced + 1;
             it.remove();
         }
 
