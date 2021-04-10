@@ -88,15 +88,21 @@ public class MinHeap {
         }
 
         Computador[] balanceados = new Computador[size];
-        int indiceComNome = -1;
+        int lastComputerWithName = getLastComputerWithName();
+
+        return -1;
+    }
+
+    int getLastComputerWithName() {
+        int indexWithName = -1;
         for (int i = size - 1; i > 0; i--) {
             if(!elems.get(i).getNome().equals("Sem nome")) {
-                indiceComNome = i;
+                indexWithName = i;
                 break;
             }
         }
 
-        return indiceComNome;
+        return indexWithName;
     }
 
     @Override
