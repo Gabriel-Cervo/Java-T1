@@ -1,4 +1,8 @@
 import java.util.ArrayList;
+import java.util.Dictionary;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 public class MinHeap {
     public ArrayList<Computador> elems;
@@ -87,10 +91,51 @@ public class MinHeap {
             return 0;
         }
 
-        Computador[] balanceados = new Computador[size];
+        HashMap<String, int[]> valoresComTrabalho = new HashMap<>();
         int lastComputerWithName = getLastComputerWithName();
 
-        return -1;
+        int half = lastComputerWithName / 2 - 1;
+
+        for (int i = lastComputerWithName; i > half; i--) {
+            Computador leftChild = elems.get(i * 2 + 1);
+            Computador rightChild = elems.get(i * 2 + 2);
+            int work = leftChild.getTrabalho() + rightChild.getTrabalho();
+            int isBalanced = leftChild.getTrabalho() == rightChild.getTrabalho() ? 1 : -1;
+            
+            int[] values = new int[2];
+            values[0] = isBalanced;
+            values[1] = work;
+
+            valoresComTrabalho.put(elems.get(i).getNome(), values);
+        }
+
+        for (int i = half; i > 0; i--) {
+            Computador computer = elems.get(i);
+            String leftChildName = "X" + (i * 2 + 1);
+            String rightChildName = "X" + (i * 2 + 2);
+
+            int[] leftChild = valoresComTrabalho.get(leftChildName);
+            int[] rightChild = valoresComTrabalho.get(rightChildName);
+
+            int isBalanced = leftChild[1] == rightChild[1] ? 1 : -1;
+            int work = leftChild[1] + rightChild[1];
+            
+            int[] values = new int[2];
+            values[0] = isBalanced;
+            values[1] = work;
+
+            valoresComTrabalho.put(computer.getNome(), values);
+        }
+
+        int balanced = 0;
+        Iterator it = valoresComTrabalho.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            balanced = valoresComTrabalho.get(pair.getKey())[0] == -1 ? balanced + 1 : balanced;
+            it.remove();
+        }
+
+        return balanced;
     }
 
     int getLastComputerWithName() {
