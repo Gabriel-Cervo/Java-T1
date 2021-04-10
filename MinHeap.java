@@ -14,33 +14,6 @@ public class MinHeap {
     }
 
     /**
-     * Retorna o pai do elem
-     * @param pos posicao do elemento
-     * @return retorna o pai
-     */
-    private int parent(int pos) {
-        return pos / 2;
-    }
-  
-    /**
-     * Retorna o filho da esquerda
-     * @param pos posicao do elemento
-     * @return retorna o filho da esquerda
-     */
-    private int leftChild(int pos) {
-        return (2 * pos);
-    }
-  
-    /**
-     * Retorna o filho da direita
-     * @param pos posicao do elemento
-     * @return retorna o filho da direita
-     */
-    private int rightChild(int pos) {
-        return (2 * pos) + 1;
-    }
-
-    /**
      * Insere um valor inteiro no heap.
      * @param n o número a ser inserido.
      */
