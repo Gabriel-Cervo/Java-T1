@@ -14,8 +14,8 @@ public class MinHeap {
     }
 
     /**
-     * Insere um valor inteiro no heap.
-     * @param n o número a ser inserido.
+     * Insere um computador no heap.
+     * @param element o computador a ser inserido.
      */
     void insert(Computador element) {
         elems.add(size++, element);
@@ -29,58 +29,56 @@ public class MinHeap {
         if (size == 0) {
             return 0;
         }
+        
+        HashMap<String, int[]> computersWithWorkCalculated = new HashMap<>();
 
-        HashMap<String, int[]> valoresComTrabalho = new HashMap<>();
-        int lastComputerWithName = getLastComputerWithName();
+        int indexOflastComputerWithName = getLastComputerWithName();
+        int half = indexOflastComputerWithName / 2 - 1;
 
-        int half = lastComputerWithName / 2 - 1;
+        for (int i = indexOflastComputerWithName; i > half; i--) {
+            Computador thisComputer = elems.get(i);
 
-        for (int i = lastComputerWithName; i > half; i--) {
             Computador leftChild = elems.get(i * 2 + 1);
             Computador rightChild = elems.get(i * 2 + 2);
+
             int work = leftChild.getTrabalho() + rightChild.getTrabalho();
             int isBalanced = leftChild.getTrabalho() == rightChild.getTrabalho() ? 1 : -1;
             
-            int[] values = new int[2];
-            values[0] = isBalanced;
-            values[1] = work;
-
-            valoresComTrabalho.put(elems.get(i).getNome(), values);
+            int[] values = { isBalanced, work };
+            computersWithWorkCalculated.put(thisComputer.getNome(), values);
         }
 
         for (int i = half; i >= 0; i--) {
-            Computador computer = elems.get(i);
+            Computador thisComputer = elems.get(i);
+
             String leftChildName = "X" + (i * 2 + 1);
             String rightChildName = "X" + (i * 2 + 2);
 
-            int[] leftChild = valoresComTrabalho.get(leftChildName);
-            int[] rightChild = valoresComTrabalho.get(rightChildName);
+            int[] leftChild = computersWithWorkCalculated.get(leftChildName);
+            int[] rightChild = computersWithWorkCalculated.get(rightChildName);
 
             int isBalanced = leftChild[1] == rightChild[1] ? 1 : -1;
-
             int work = leftChild[1] + rightChild[1];
             
-            int[] values = new int[2];
-            values[0] = isBalanced;
-            values[1] = work;
-
-            valoresComTrabalho.put(computer.getNome(), values);
+            int[] values = { isBalanced, work };
+            computersWithWorkCalculated.put(thisComputer.getNome(), values);
         }
 
-        int balanced = 0;
-        Iterator it = valoresComTrabalho.entrySet().iterator();
+        int balancedElements = 0;
+        Iterator it = computersWithWorkCalculated.entrySet().iterator();
         while (it.hasNext()) {
             Map.Entry pair = (Map.Entry)it.next();
-            balanced = valoresComTrabalho.get(pair.getKey())[0] == -1 ? balanced : balanced + 1;
+            if (computersWithWorkCalculated.get(pair.getKey())[0] == 1) {
+                balancedElements++;
+            }
             it.remove();
         }
-
-        return balanced;
+        return balancedElements;
     }
 
     /**
      * Pega o ultimo indice do computador ainda com nome
-     * Ex: 'X30', sendo os filhos dele -> 44, 43
+     * Ex: 'X30', sendo os filhos dele computadores sem nome
      * @return o indice do ultimo computador com nome
      */
     int getLastComputerWithName() {
