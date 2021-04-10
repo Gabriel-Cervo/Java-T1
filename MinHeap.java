@@ -82,7 +82,7 @@ public class MinHeap {
             valoresComTrabalho.put(elems.get(i).getNome(), values);
         }
 
-        for (int i = half; i > 0; i--) {
+        for (int i = half; i >= 0; i--) {
             Computador computer = elems.get(i);
             String leftChildName = "X" + (i * 2 + 1);
             String rightChildName = "X" + (i * 2 + 2);
@@ -91,6 +91,9 @@ public class MinHeap {
             int[] rightChild = valoresComTrabalho.get(rightChildName);
 
             int isBalanced = leftChild[1] == rightChild[1] ? 1 : -1;
+
+            System.out.println(computer.getNome() + " == " + isBalanced);
+
             int work = leftChild[1] + rightChild[1];
             
             int[] values = new int[2];
