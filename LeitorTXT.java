@@ -1,7 +1,7 @@
 import java.io.*;
 
-public class LeitorCSV {
-    public static void importarCSV(String nomeArquivo, MinHeap lista) throws Exception {
+public class LeitorTXT {
+    public static void importarTXT(String nomeArquivo, MinHeap lista) throws Exception {
         BufferedReader br = new BufferedReader(new FileReader(nomeArquivo + ".txt"));  
         String line = "";
         Boolean isFirstIteration = true;
